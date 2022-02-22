@@ -1,9 +1,7 @@
 var m2c = {
-  mapillaryKey: 'WHZlUV9FNXhFZ24xZEZQRHZzUlZ3QTo1NDRmYjUwNzg1NGMxMWFi',
-  mapzenKey: 'mapzen-EQXf9MJ',
-  mapillaryEndpoint: 'https://a.mapillary.com/v3/',
-  mapillaryImageEndpoint: 'https://d1cuyjsrcm0gby.cloudfront.net/',
-  mapzenEndpoint: 'https://search.mapzen.com/v1/',
+  mapillaryKey: 'MLY|4883184538440543|8bb1f75d4864b7a7721323ad75f08c8f',
+  mapillaryEndpoint: 'https://graph.mapillary.com/',
+  mapillaryImageEndpoint: 'https://scontent-iad3-2.xx.fbcdn.net/m1/v/t6/',
   urlToCommonsEndpoint: 'https://tools.wmflabs.org/url2commons/index.html?run=1',
   commonsEndpoint: 'https://commons.wikimedia.org/w/api.php?action=query&format=json&utf8=1&formatversion=2&origin=*',
   commonsFileEndpoint: 'https://commons.wikimedia.org/wiki/',
@@ -49,10 +47,19 @@ var m2c = {
     return false;
   },
 
+  getParameterByName: function(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
-      if (url.match(/\/\/www\.mapillary\.com\/map\/im\//gi)) {
-        return decodeURIComponent(url.split('/im/')[1]);
+      if (url.match(/\/\/www\.mapillary\.com\/app\//gi)) {
+        return getParameterByName('pKey');
       } else {
         return url;
       }
@@ -62,7 +69,7 @@ var m2c = {
   },
 
   getMapillaryData: function(id, callback) {
-    var url = m2c.mapillaryEndpoint + 'images/' + id + '?client_id=' + m2c.mapillaryKey;
+    var url = m2c.mapillaryEndpoint + id + '?access_token=' + m2c.mapillaryKey + '&fields=thumb_original_url,computed_geometry,captured_at,computed_compass_angle';
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -86,17 +93,15 @@ var m2c = {
   },
 
   constructURL: function(location, filename) {
-    var date = new Date(m2c.imageData.properties.captured_at).toISOString().replace(/T/g, ' ').replace(/.000Z/g, '');
-    var imageUrl = m2c.mapillaryImageEndpoint + m2c.imageData.properties.key + '/thumb-2048.jpg';
+    var date = new Date(m2c.imageData.captured_at).toISOString().replace(/T/g, ' ').replace(/.000Z/g, '');
+    var imageUrl = m2c.imageData.thumb_original_url;
 
     var uploadDescription = '{{subst:Mapillary' +
       '|location=' + location +
-      '|key=' + m2c.imageData.properties.key +
+      '|key=' + m2c.imageData.id +
       '|date=' + date +
-      '|username=' + m2c.imageData.properties.username +
-      '|lat=' + m2c.imageData.geometry.coordinates[1] +
-      '|lon=' + m2c.imageData.geometry.coordinates[0] +
-      '|ca=' + m2c.imageData.properties.ca +
+      '|lat=' + m2c.imageData.computed_geometry.coordinates[1] +
+      '|lon=' + m2c.imageData.computed_geometry.coordinates[0]
       '}}';
 
     var url = m2c.urlToCommonsEndpoint +
@@ -122,7 +127,7 @@ var m2c = {
   },
 
   loadMapillaryImage: function(id, callback) {
-    var url = m2c.mapillaryImageEndpoint + id + '/thumb-2048.jpg';
+    var url = m2c.imageData.thumb_original_url;
     var img = new Image();
     img.onload = callback.apply(null, [url]);
     img.src = url;
