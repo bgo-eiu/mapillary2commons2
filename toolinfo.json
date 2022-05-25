@@ -1,13 +1,13 @@
 [
     {
       "name" : "mapillary_simpleUpload",
-      "title" : "Mapillary-2-Commons",
+      "title" : "Mapillary2Commons2",
       "description" : "Uploads an image from Mapillary (http://mapillary.com/) to Wikimedia Commons",
-      "url" : "https://tools.wmflabs.org/mapillary-commons/mapillary2commons/",
+      "url" : "https://tools.wmflabs.org/mapillary-commons/mapillary2commons2/",
       "keywords" : "tools, Mapillary, Commons, upload",
-      "author" : "Lokal_Profil",
-      "repository" : "https://github.com/lokal-profil/mapillary2commons.git"
-    },
+      "author" : "Lokal_Profil, bgo-eiu",
+      "repository" : "https://github.com/bgo-eiu/mapillary2commons2"
+    }/*,
     {
       "name" : "mapillary_WLM",
       "title" : "Wiki Loves Monuments and Mapillary",
@@ -24,5 +24,5 @@
       "url" : "https://commons.wikimedia.org/wiki/User:Peterneubauer/mapillary.js",
       "keywords" : "tools, Mapillary, Commons",
       "author" : "peterneubauer, Lokal_Profil"
-    }
+    }*/
 ]
