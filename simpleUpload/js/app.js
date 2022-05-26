@@ -101,7 +101,7 @@ var m2c = {
       '|key=' + m2c.imageData.id +
       '|date=' + date +
       '|lat=' + m2c.imageData.computed_geometry.coordinates[1] +
-      '|lon=' + m2c.imageData.computed_geometry.coordinates[0]
+      '|lon=' + m2c.imageData.computed_geometry.coordinates[0] +
       '}}';
 
     var url = m2c.urlToCommonsEndpoint +
