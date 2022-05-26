@@ -2,6 +2,7 @@ var m2c = {
   mapillaryKey: 'MLY|4883184538440543|8bb1f75d4864b7a7721323ad75f08c8f',
   mapillaryEndpoint: 'https://graph.mapillary.com/',
   mapillaryImageEndpoint: 'https://scontent-iad3-2.xx.fbcdn.net/m1/v/t6/',
+  mapillaryEmbedEndpoint: 'https://www.mapillary.com/embed?map_style=OpenStreetMap&image_key=',
   urlToCommonsEndpoint: 'https://tools.wmflabs.org/url2commons/index.html?run=1',
   commonsEndpoint: 'https://commons.wikimedia.org/w/api.php?action=query&format=json&utf8=1&formatversion=2&origin=*',
   commonsFileEndpoint: 'https://commons.wikimedia.org/wiki/',
@@ -169,17 +170,17 @@ document.getElementById('upload').addEventListener('click', function(evt) {
     evt.preventDefault();
   }
 });
-
+//372382704255691&style=photo
 function processImageID(id) {
   m2c.getMapillaryData(id, function(data) {
     if (data) {
       m2c.mapillaryInCommons(id, function(commons) {
         if (commons) {
-          m2c.openNotification('This image seams to exist in Commons: <a href="' + m2c.commonsFileEndpoint + commons + '">' + commons + '</a>');
+          m2c.openNotification('This image seems to exist in Commons: <a href="' + m2c.commonsFileEndpoint + commons + '">' + commons + '</a>');
         } else {
           m2c.loadMapillaryImage(id, function(url) {
             if (typeof url === 'string') {
-              document.getElementById('image').src = url;
+              document.getElementById('embed').src = mapillaryEmbedEndpoint + id+ '&style=photo';
               document.getElementById('main').style.display = 'flex';
               window.scrollTo(0, document.body.scrollHeight);
             }
