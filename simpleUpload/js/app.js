@@ -47,7 +47,7 @@ var m2c = {
     return false;
   },
 
-  getParameterByName: function(name, url = window.location.href) {
+  getParameterByName: function(name, url) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
@@ -59,7 +59,7 @@ var m2c = {
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
       if (url.match(/\/\/www\.mapillary\.com\/app\//gi)) {
-        return getParameterByName('pKey');
+        return getParameterByName('pKey', url);
       } else {
         return url;
       }
