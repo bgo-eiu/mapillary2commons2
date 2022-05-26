@@ -180,7 +180,7 @@ function processImageID(id) {
         } else {
           m2c.loadMapillaryImage(id, function(url) {
             if (typeof url === 'string') {
-              document.getElementById('embed').src = mapillaryEmbedEndpoint + id+ '&style=photo';
+              document.getElementById('embed').src = m2c.mapillaryEmbedEndpoint + id + '&style=photo';
               document.getElementById('main').style.display = 'flex';
               window.scrollTo(0, document.body.scrollHeight);
             }
