@@ -5,12 +5,12 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="description" content="Mapillary to Wikimedia Commons uploader" />
-		<title>Mapillary 2 Commons</title>
+		<title>Mapillary 2 Commons 2</title>
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
 		<div class="notification" id="notification"></div>
-		<div class="info">
+		<div class="oauth">
 			<ul>
 				<li>You need a Wikimedia Commons account and to have <a href="https://tools.wmflabs.org/magnustools/oauth_uploader.php?action=authorize" target="_blank" rel="noopener noreferrer">authorized OAuth Uploader</a> for this tool to work.</li>
 				<li>Don't forget to go to the Commons image afterwards and add categories.</li>
@@ -18,7 +18,7 @@
 		</div>
 		<header>
 			<div class="container">
-				<h1>Mapillary 2 Commons</h1>
+				<h1>Mapillary 2 Commons 2</h1>
 				<ul>
 					<li>Street-level photos on <a href="https://www.mapillary.com">Mapillary</a> can be uploaded to <i>That would look great on <a href="https://commons.wikimedia.org">Wikimedia Commons</a></i>.</li>
 					<li>Enter an image key ('pKey') or Mapillary URL below and click "Lookup".</li>
@@ -27,14 +27,14 @@
 				<br/>
 				<button id="mapillary-submit" class="btn white">Lookup</button>
 			</div>
-			<p class="info-bottom"><a href="https://github.com/lokal-profil/mapillary2commons">Source Code and API Documentation</a></p>
+			<p class="info-bottom"><a href="https://github.com/bgo-eiu/mapillary2commons2">Fork on GitHub updated for Mapillary API v4</a></p>
+			<p class="info-bottom"><a href="https://github.com/lokal-profil/mapillary2commons">Based on original API v3 version by lokal-profil</a></p>
 		</header>
 		<main id="main" class="container">
 			<iframe id="embed" width="640" height="480" src="" frameborder="0"></iframe>
-			<img id="image" alt="the image to import" src="" />
-			<input id="location-input" type="text" placeholder="Describe location" />
-
+			<input id="location-input" type="text" placeholder="Enter a descriptive filename" />
 			<p>File to be named: <i id=filename-label></i></p>
+		        <input id="location-input" type="text" placeholder="Enter the username of the photographer" />
 			<a id="upload" href="" class="btn">Upload</a>
 		</main>
 
