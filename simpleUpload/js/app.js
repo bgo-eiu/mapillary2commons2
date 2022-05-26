@@ -106,9 +106,9 @@ var m2c = {
 
     var url = m2c.urlToCommonsEndpoint +
       '&urls=' +
-      imageUrl +
+      encodeURIComponent(imageUrl).replace(/_/g, '$US$') +
       ' ' + filename + '|' +
-      encodeURIComponent(uploadDescription) +
+      encodeURIComponent(uploadDescription).replace( /_/g , "$US$" ) +
       '&desc=$DESCRIPTOR$';
 
     document.getElementById('upload').href = url;
