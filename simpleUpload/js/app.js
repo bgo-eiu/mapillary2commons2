@@ -54,7 +54,7 @@ var m2c = {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  }
+  },
 
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
@@ -106,9 +106,9 @@ var m2c = {
 
     var url = m2c.urlToCommonsEndpoint +
       '&urls=' +
-      imageUrl.replace(/_/g, '$US$') +
+      imageUrl +
       ' ' + filename + '|' +
-      encodeURIComponent(uploadDescription).replace( /_/g , "$US$" ) +
+      encodeURIComponent(uploadDescription) +
       '&desc=$DESCRIPTOR$';
 
     document.getElementById('upload').href = url;
