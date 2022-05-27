@@ -60,7 +60,7 @@ var m2c = {
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
       if (url.match(/\/\/www\.mapillary\.com\/app\//gi)) {
-        getParameterByName('pKey', url);
+        m2c.getParameterByName('pKey', url);
       } else {
         return url;
       }
@@ -109,7 +109,7 @@ var m2c = {
     var url = m2c.urlToCommonsEndpoint +
       '&urls=' +
       encodeURIComponent(imageUrl).replace(/_/g, '$US$') +
-      ' ' + filename + '|' +
+      ' ' + encodeURIComponent(filename).replace(/_/g, '$US$')  + '|' +
       encodeURIComponent(uploadDescription).replace( /_/g , "$US$" ) +
       '&desc=$DESCRIPTOR$';
 
@@ -125,11 +125,11 @@ var m2c = {
         m2c.constructURL(location, destFile, username);
       } else {
         document.getElementById('upload').href = '';
-        document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
+        document.getElementById('filename-label').innerText = 'Enter a location description and username before uploading.';
       }
     } else {
       document.getElementById('upload').href = '';
-      document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
+      document.getElementById('filename-label').innerText = 'Enter a location description and username before uploading.';
     }
   },
 
