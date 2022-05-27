@@ -60,7 +60,7 @@ var m2c = {
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
       if (url.match(/\/\/www\.mapillary\.com\/app\//gi)) {
-        m2c.getParameterByName('pKey', url);
+        return m2c.getParameterByName('pKey', url);
       } else {
         return url;
       }
