@@ -121,7 +121,7 @@ var m2c = {
     if (location.length > 3) {
       var destFile = location + ' - Mapillary (' + id + ').jpg';
       document.getElementById('filename-label').innerText = destFile;        
-      if (username.length > 3 {
+      if (username.length > 3) {
         m2c.constructURL(location, destFile, username);
       } else {
         document.getElementById('upload').href = '';
