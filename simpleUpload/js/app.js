@@ -93,7 +93,7 @@ var m2c = {
     xhr.send();
   },
 
-  constructURL: function(location, filename) {
+  constructURL: function(location, filename, username) {
     var date = new Date(m2c.imageData.captured_at).toISOString().replace(/T/g, ' ').replace(/.000Z/g, '');
     var imageUrl = m2c.imageData.thumb_original_url;
 
@@ -101,6 +101,7 @@ var m2c = {
       '|location=' + location +
       '|key=' + m2c.imageData.id +
       '|date=' + date +
+      '|username=' + username +
       '|lat=' + m2c.imageData.computed_geometry.coordinates[1] +
       '|lon=' + m2c.imageData.computed_geometry.coordinates[0] +
       '}}';
@@ -115,15 +116,15 @@ var m2c = {
     document.getElementById('upload').href = url;
   },
 
-  constructFilename: function(location, id) {
+  constructFilename: function(location, id, username) {
     // expect location to be more then 3 charters long
-    if (location.length > 3) {
+    if ((location.length > 3) && (username.length > 3)) {
       var destFile = location + ' - Mapillary (' + id + ').jpg';
       document.getElementById('filename-label').innerText = destFile;
-      m2c.constructURL(location, destFile);
+      m2c.constructURL(location, destFile, username);
     } else {
       document.getElementById('upload').href = '';
-      document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
+      document.getElementById('filename-label').innerText = 'Enter a location and username description before uploading.';
     }
   },
 
@@ -161,8 +162,13 @@ if (id) {
   });
 }
 
-document.getElementById('location-input').addEventListener('input', function(evt) {
-  m2c.constructFilename(this.value, id);
+var locationInput = document.getElementById('location-input');
+var usernameInput = document.getElementById('username-input');
+locationInput.addEventListener('input', function(evt) {
+  m2c.constructFilename(locationInput, id, usernameInput);
+});
+usernameInput.addEventListener('input', function(evt) {
+  m2c.constructFilename(locationInput, id, usernameInput);
 });
 
 document.getElementById('upload').addEventListener('click', function(evt) {
@@ -170,7 +176,7 @@ document.getElementById('upload').addEventListener('click', function(evt) {
     evt.preventDefault();
   }
 });
-//372382704255691&style=photo
+
 function processImageID(id) {
   m2c.getMapillaryData(id, function(data) {
     if (data) {
