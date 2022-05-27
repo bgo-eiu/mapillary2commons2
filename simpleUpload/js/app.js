@@ -120,8 +120,13 @@ var m2c = {
     // expect location to be more then 3 charters long
     if (location.length > 3) {
       var destFile = location + ' - Mapillary (' + id + ').jpg';
-      document.getElementById('filename-label').innerText = destFile;  
-      m2c.constructURL(location, destFile, username);
+      document.getElementById('filename-label').innerText = destFile;        
+      if (username.length > 3 {
+        m2c.constructURL(location, destFile, username);
+      } else {
+        document.getElementById('upload').href = '';
+        document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
+      }
     } else {
       document.getElementById('upload').href = '';
       document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
@@ -165,9 +170,11 @@ if (id) {
 var locationInput = document.getElementById('location-input');
 var usernameInput = document.getElementById('username-input');
 locationInput.addEventListener('input', function(evt) {
+  locationInput = this.value;
   m2c.constructFilename(locationInput, id, usernameInput);
 });
 usernameInput.addEventListener('input', function(evt) {
+  usernameInput = this.value;
   m2c.constructFilename(locationInput, id, usernameInput);
 });
 
