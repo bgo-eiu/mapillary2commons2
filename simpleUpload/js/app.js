@@ -60,7 +60,7 @@ var m2c = {
   mapillaryURLtoID: function(url) {
     if (typeof url == 'string') {
       if (url.match(/\/\/www\.mapillary\.com\/app\//gi)) {
-        return getParameterByName('pKey', url);
+        getParameterByName('pKey', url);
       } else {
         return url;
       }
@@ -120,13 +120,8 @@ var m2c = {
     // expect location to be more then 3 charters long
     if (location.length > 3) {
       var destFile = location + ' - Mapillary (' + id + ').jpg';
-      document.getElementById('filename-label').innerText = destFile;
-      if (username.length > 3) {
-        m2c.constructURL(location, destFile, username);
-      } else {
-        document.getElementById('upload').href = '';
-        document.getElementById('filename-label').innerText = 'Enter a username before uploading.';
-      }
+      document.getElementById('filename-label').innerText = destFile;  
+      m2c.constructURL(location, destFile, username);
     } else {
       document.getElementById('upload').href = '';
       document.getElementById('filename-label').innerText = 'Enter a location description before uploading.';
